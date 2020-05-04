@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'adminsortable2',
+    'cv',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +122,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'height': 1000,
+        'toolbar': 'full',
+    },
+}
