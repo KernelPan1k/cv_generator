@@ -10,7 +10,7 @@
 <body>
 <div class="pure-g">
     <div class="pure-u-1-4">
-        <h1>Foo Bar</h1>
+        <h1>{{ obj.full_name }}</h1>
         <span>Développeur web</span>
     </div>
     <div class="pure-u-1-4">
@@ -19,7 +19,7 @@
                 <h4>Adresse</h4>
             </div>
             <div class="pure-u-2-3">
-                ...
+                {{ obj.address | safe }}
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
                 <h4>Contact</h4>
             </div>
             <div class="pure-u-2-3">
-                ...
+                {{ obj.contact | safe }}
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <h4>Informations</h4>
             </div>
             <div class="pure-u-2-3">
-                ...
+                {{ obj.information | safe }}
             </div>
         </div>
     </div>
@@ -49,40 +49,53 @@
     <div class="pure-u-1-2">
         <h2>EXPERIENCES PROFESSIONNELLES</h2>
 
-        <div class="pure-g">
-            <div class="pure-u-1-1">
-                <h3>Fooo barrr</h3>
+        {% for experience in obj.experience_set.all %}
+            <div class="pure-g">
+                <div class="pure-u-1-1">
+                    <h3>{{ experience.title }}</h3>
 
-                jj
-                ss
-                dd
+                    {{ experience.tasks | safe }}
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="pure-u-1-2">
         <div class="pure-g">
             <div class="pure-u-1-1">
                 <h2>DIPLÔMES</h2>
 
+                {% for grade in obj.grade_set.all %}
+                    {{ grade.year }}
+                    {{ grade.title }}
+                    {{ grade.sub_title }}
+                    <hr>
+                {% endfor %}
 
             </div>
 
             <div class="pure-u-1-1">
                 <h2>CONNAISSANCES DIVERSES</h2>
 
-
+                {{ obj.knowledge | safe }}
             </div>
 
             <div class="pure-u-1-1">
                 <h2>TECHNOLOGIES</h2>
 
+                {% for technology in obj.technology_set.all %}
+                    {#TODO#}
+                    techno ... {{ forloop.counter }}
+                {% endfor %}
 
             </div>
 
             <div class="pure-u-1-1">
                 <h2>PREFERENCES</h2>
 
-
+                {% for preference in obj.preference_set.all %}
+                    {#TODO#}
+                    pref ... {{ forloop.counter }}
+                {% endfor %}
             </div>
         </div>
     </div>
