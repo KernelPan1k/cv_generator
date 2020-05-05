@@ -5,7 +5,7 @@ from django.contrib import admin
 from cv.models import Grade, Experience, Technology, Preference, CV
 
 
-class GradeInline(SortableInlineAdminMixin, admin.TabularInline):
+class GradeInline(admin.TabularInline):
     model = Grade
     extra = 0
 
@@ -40,6 +40,9 @@ class CvAdmin(admin.ModelAdmin):
             'fields': ('knowledge',),
         }),
     )
+
+    class Media:
+        js = ['cv/js/ckeditor-sortable.js', ]
 
 
 admin.site.register(CV, CvAdmin)
