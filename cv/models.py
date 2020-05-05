@@ -4,12 +4,13 @@ from django.db import models
 
 
 class CV(models.Model):
+    identifier = models.CharField("Identifier", max_length=100)
     full_name = models.CharField("Full name", max_length=100)
     address = RichTextField("Address", config_name='default')
     contact = RichTextField("Contact", config_name='default')
     information = RichTextField("Information", config_name='default')
     knowledge = RichTextField("Knowledge", config_name='default')
-
+    
 
 class Grade(models.Model):
     year = models.IntegerField("Year")

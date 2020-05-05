@@ -27,11 +27,12 @@ class PreferenceInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class CvAdmin(admin.ModelAdmin):
+    list_display = ("identifier", )
     inlines = (GradeInline, ExperienceInline, TechnologyInline, PreferenceInline)
 
     fieldsets = (
         (None, {
-            'fields': ('full_name', 'address', 'contact',)
+            'fields': ('identifier', 'full_name', 'address', 'contact',)
         }),
         ('Information', {
             'fields': ('information',),
