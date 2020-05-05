@@ -5,10 +5,10 @@ from django.db import models
 
 class CV(models.Model):
     full_name = models.CharField("Full name", max_length=100)
-    address = RichTextField("Address", config_name='full')
-    contact = RichTextField("Contact", config_name='full')
-    information = RichTextField("Information", config_name='full')
-    knowledge = RichTextField("Knowledge", config_name='full')
+    address = RichTextField("Address", config_name='default')
+    contact = RichTextField("Contact", config_name='default')
+    information = RichTextField("Information", config_name='default')
+    knowledge = RichTextField("Knowledge", config_name='default')
 
 
 class Grade(models.Model):
@@ -23,7 +23,7 @@ class Grade(models.Model):
 
 class Experience(models.Model):
     title = models.CharField("Title", max_length=100)
-    tasks = RichTextField("Tasks", config_name='full')
+    tasks = RichTextField("Tasks", config_name='default')
     position = models.PositiveIntegerField(default=0, blank=False, null=False)
     cv = models.ForeignKey(CV, on_delete=models.CASCADE)
 

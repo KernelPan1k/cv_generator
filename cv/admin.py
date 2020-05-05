@@ -7,18 +7,23 @@ from cv.models import Grade, Experience, Technology, Preference, CV
 
 class GradeInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Grade
+    extra = 0
 
 
 class ExperienceInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Experience
+    extra = 0
 
 
 class TechnologyInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Technology
+    extra = 0
 
 
 class PreferenceInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Preference
+    extra = 0
+    max_num = 4
 
 
 class CvAdmin(admin.ModelAdmin):
@@ -26,7 +31,7 @@ class CvAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('full_name', 'address', 'Contact', 'sites')
+            'fields': ('full_name', 'address', 'contact',)
         }),
         ('Information', {
             'fields': ('information',),
