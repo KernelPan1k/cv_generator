@@ -1,0 +1,43 @@
+$base: #3e3e3e;
+$light: lighten($base, 30%);
+$padding-big: 25px;
+$padding-small: 10px;
+
+body {
+  font-size: 1em;
+  padding: $padding-big;
+
+  * {
+    color: $base;
+    box-sizing: border-box;
+    font-family: Cantarell
+  }
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+h2 {
+  width: 80%;
+  border-bottom: 1px dashed $light;
+}
+
+li {
+  list-style: none;
+  &:before {
+    content: " ۔ ";
+  }
+}
+
+.user-info {
+  h4 {
+    text-align: right;
+    padding-right: $padding-small;
+  }
+
+  .data {
+    padding-left: $padding-small;
+    border-left: 1px solid $light;
+  }
+}

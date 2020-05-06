@@ -1,0 +1,43 @@
+@charset "UTF-8";
+/* line 6, ../scss/style.scss */
+body {
+  font-size: 1em;
+  padding: 25px;
+}
+/* line 10, ../scss/style.scss */
+body * {
+  color: #3e3e3e;
+  box-sizing: border-box;
+  font-family: Cantarell;
+}
+
+/* line 17, ../scss/style.scss */
+h1 {
+  margin-bottom: 0;
+}
+
+/* line 21, ../scss/style.scss */
+h2 {
+  width: 80%;
+  border-bottom: 1px dashed #8b8b8b;
+}
+
+/* line 26, ../scss/style.scss */
+li {
+  list-style: none;
+}
+/* line 28, ../scss/style.scss */
+li:before {
+  content: " ۔ ";
+}
+
+/* line 34, ../scss/style.scss */
+.user-info h4 {
+  text-align: right;
+  padding-right: 10px;
+}
+/* line 39, ../scss/style.scss */
+.user-info .data {
+  padding-left: 10px;
+  border-left: 1px solid #8b8b8b;
+}
