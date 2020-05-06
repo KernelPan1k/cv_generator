@@ -2,33 +2,79 @@ $base: #3e3e3e;
 $light: lighten($base, 30%);
 $padding-big: 25px;
 $padding-small: 10px;
+$font-size: 16px;
 
 body {
-  font-size: 1em;
   padding: $padding-big;
 
   * {
     color: $base;
     box-sizing: border-box;
-    font-family: Cantarell
+    font-family: Cantarell;
+    font-size: $font-size;
   }
 }
 
 h1 {
   margin-bottom: 0;
+  font-size: 2em;
 }
 
 h2 {
   width: 80%;
   border-bottom: 1px dashed $light;
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+p, span, li {
+  font-size: .9em;
 }
 
 li {
   list-style: none;
+
   &:before {
     content: " ۔ ";
   }
 }
+
+.body-arrow {
+  border-right: 3px solid $base;
+}
+
+.arrow {
+  border: solid $base;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.l-box {
+  padding: $padding-small;
+}
+
+.dot {
+  height: .9em;
+  width: .9em;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+
+  &.dot-dark {
+    background-color: $base;
+  }
+}
+
 
 .user-info {
   h4 {
@@ -39,5 +85,17 @@ li {
   .data {
     padding-left: $padding-small;
     border-left: 1px solid $light;
+  }
+}
+
+.grades {
+  .arrow, .dot {
+    float: right;
+    position: relative;
+    left: .5em;
+  }
+
+  .dot {
+    top: 1em;
   }
 }
