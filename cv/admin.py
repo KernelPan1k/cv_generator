@@ -32,7 +32,7 @@ class CvAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('identifier', 'full_name', 'address', 'contact',)
+            'fields': ('identifier', 'full_name', 'address', 'contact', 'hobby', 'color')
         }),
         ('Information', {
             'fields': ('information',),

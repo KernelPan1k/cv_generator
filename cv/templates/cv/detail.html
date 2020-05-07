@@ -4,6 +4,30 @@
 {% block head %}
     {#    https://bernii.github.io/gauge.js/#}
     <script src="{% static "cv/js/gauge.js" %}"></script>
+
+    {% if obj.color %}
+        <style>
+            h1 {
+                color: {{ obj.color }} !important;
+            }
+
+            .arrow {
+                border-color: {{ obj.color }} !important;
+            }
+
+            .dot-dark {
+                background-color: {{ obj.color }} !important;
+            }
+
+            .body-arrow {
+                border-right-color: {{ obj.color }} !important;
+            }
+        </style>
+
+        <script>
+            var DEFAULT_COLOR = "{{ obj.color }}";
+        </script>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -63,6 +87,16 @@
                     </div>
                 </div>
             {% endfor %}
+
+            {% if obj.hobby %}
+                <h2>LOISIRS</h2>
+
+                <div class="pure-g">
+                    <div class="pure-u-1-1">
+                        {{ obj.hobby | safe }}
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <div class="pure-u-1-2 l-box">
             <div class="pure-g">
@@ -139,21 +173,21 @@
 
     <script>
         var opts = {
-            angle: 0.5, // The span of the gauge arc
-            lineWidth: 0.1, // The line thickness
-            radiusScale: 1, // Relative radius
+            angle: 0.5,
+            lineWidth: 0.1,
+            radiusScale: 1,
             pointer: {
-                length: 0.6, // // Relative to gauge radius
-                strokeWidth: 0.035, // The thickness
-                color: '#3e3e3e' // Fill color
+                length: 0.6,
+                strokeWidth: 0.035,
+                color: DEFAULT_COLOR || '#3e3e3e'
             },
-            limitMax: false,     // If false, max value increases automatically if value > maxValue
-            limitMin: false,     // If true, the min value of the gauge will be fixed
-            colorStart: '#3e3e3e',   // Colors
-            colorStop: '#3e3e3e',    // just experiment with them
-            strokeColor: '#3e3e3e',  // to see which ones work best for you
+            limitMax: false,
+            limitMin: false,
+            colorStart: DEFAULT_COLOR || '#3e3e3e',
+            colorStop: DEFAULT_COLOR || '#3e3e3e',
+            strokeColor: DEFAULT_COLOR || '#3e3e3e',
             generateGradient: true,
-            highDpiSupport: true,     // High resolution support
+            highDpiSupport: true,
 
         };
 

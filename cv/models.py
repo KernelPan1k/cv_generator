@@ -1,4 +1,5 @@
 from ckeditor.fields import RichTextField
+from colorfield.fields import ColorField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -10,7 +11,9 @@ class CV(models.Model):
     contact = RichTextField("Contact", config_name='default')
     information = RichTextField("Information", config_name='default')
     knowledge = RichTextField("Knowledge", config_name='default')
-    
+    hobby = RichTextField("Hobby", config_name='default', blank=True, null=True, default=None)
+    color = ColorField(default='#3e3e3e')
+
 
 class Grade(models.Model):
     year = models.IntegerField("Year")
