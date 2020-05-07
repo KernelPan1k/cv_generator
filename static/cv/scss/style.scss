@@ -99,3 +99,18 @@ li {
     top: 1em;
   }
 }
+
+.preferences {
+  display: block;
+  height: 100%;
+  position: relative;
+
+  span {
+    z-index: 2;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

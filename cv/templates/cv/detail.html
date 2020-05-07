@@ -124,8 +124,11 @@
 
                     <div class="pure-g">
                         {% for preference in obj.preference_set.all %}
-                            <div class="pure-u-1-{{ obj.preference_set.all | length }} pref-{{ preference.force }}">
-                                {{ preference.title }}
+                            <div class="pure-u-1-{{ obj.preference_set.all | length }}">
+                                <div class="preferences">
+                                    <canvas id="pref-{{ forloop.counter }}"></canvas>
+                                    <span>{{ preference.title }}</span>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -133,4 +136,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var opts = {
+            angle: 0.5, // The span of the gauge arc
+            lineWidth: 0.1, // The line thickness
+            radiusScale: 1, // Relative radius
+            pointer: {
+                length: 0.6, // // Relative to gauge radius
+                strokeWidth: 0.035, // The thickness
+                color: '#3e3e3e' // Fill color
+            },
+            limitMax: false,     // If false, max value increases automatically if value > maxValue
+            limitMin: false,     // If true, the min value of the gauge will be fixed
+            colorStart: '#3e3e3e',   // Colors
+            colorStop: '#3e3e3e',    // just experiment with them
+            strokeColor: '#3e3e3e',  // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true,     // High resolution support
+
+        };
+
+        {% for preference in obj.preference_set.all %}
+            var target{{ forloop.counter }} = document.getElementById('pref-{{ forloop.counter }}');
+            var gauge{{ forloop.counter }} = new Donut(target{{ forloop.counter }}).setOptions(opts);
+            gauge{{ forloop.counter }}.maxValue = 4;
+            gauge{{ forloop.counter }}.setMinValue(0);
+            gauge{{ forloop.counter }}.animationSpeed = 0;
+            gauge{{ forloop.counter }}.set({{ preference.force }});
+        {% endfor %}
+    </script>
 {% endblock %}

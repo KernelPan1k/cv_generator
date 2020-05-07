@@ -102,3 +102,19 @@ li:before {
 .grades .dot {
   top: 1em;
 }
+
+/* line 103, ../scss/style.scss */
+.preferences {
+  display: block;
+  height: 100%;
+  position: relative;
+}
+/* line 108, ../scss/style.scss */
+.preferences span {
+  z-index: 2;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
