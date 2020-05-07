@@ -21,7 +21,8 @@ from cv import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cv/<int:pk>/', views.CvView.as_view()),
+    path('', views.CvListView.as_view(), name="cv-list"),
+    path('cv/<int:pk>/', views.CvView.as_view(), name="cv-detail"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
