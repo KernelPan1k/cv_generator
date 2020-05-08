@@ -5,6 +5,24 @@ from django.contrib import admin
 from cv.models import Grade, Experience, Technology, Preference, CV
 
 
+def duplicate_cv(modeladmin, request, queryset):
+    foreign_klass = [Experience, Grade, Preference, Technology]
+    for obj in queryset:
+        old_id = obj.id
+        obj.id = None
+        obj.identifier = "%s (copy)" % obj.identifier
+        obj.save()
+
+        for foreign in foreign_klass:
+            for foreign_obj in foreign.objects.filter(cv=old_id):
+                foreign_obj.id = None
+                foreign_obj.cv = obj
+                foreign_obj.save()
+
+
+duplicate_cv.short_description = "Duplicate cv"
+
+
 class GradeInline(admin.TabularInline):
     model = Grade
     extra = 0
@@ -27,8 +45,9 @@ class PreferenceInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class CvAdmin(admin.ModelAdmin):
-    list_display = ("identifier", )
+    list_display = ("identifier",)
     inlines = (GradeInline, ExperienceInline, TechnologyInline, PreferenceInline)
+    actions = [duplicate_cv]
 
     fieldsets = (
         (None, {
