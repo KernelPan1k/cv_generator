@@ -14,6 +14,14 @@ class CV(models.Model):
     hobby = RichTextField("Hobby", config_name='default', blank=True, null=True, default=None)
     color = ColorField(default='#3e3e3e')
 
+    def get_preference_column_nbr(self):
+        total_length = self.preference_set.count()
+
+        if total_length == 2 or total_length == 4:
+            return 2
+
+        return total_length
+
 
 class Grade(models.Model):
     year = models.IntegerField("Year")

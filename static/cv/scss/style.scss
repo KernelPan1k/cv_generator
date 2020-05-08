@@ -2,17 +2,16 @@ $base: #3e3e3e;
 $light: lighten($base, 30%);
 $padding-big: 25px;
 $padding-small: 10px;
-$font-size: 16px;
+$font-size: 12px;
 
 body {
-  padding: $padding-big;
   background: #FFFFFF;
+  font-size: $font-size;
 
   * {
     color: $base;
     box-sizing: border-box;
     font-family: Cantarell;
-    font-size: $font-size;
   }
 }
 
@@ -97,7 +96,7 @@ li {
   .arrow, .dot {
     float: right;
     position: relative;
-    left: .5em;
+    left: .6em;
   }
 
   .dot {
@@ -108,7 +107,14 @@ li {
 .preferences {
   display: block;
   height: 100%;
+  width: 100%;
   position: relative;
+  margin: $padding-small 0;
+
+  canvas {
+    width: 100%;
+    display: block;
+  }
 
   span {
     z-index: 2;

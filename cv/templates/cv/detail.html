@@ -38,10 +38,10 @@
         </div>
         <div class="pure-u-1-4 l-box">
             <div class="pure-g user-info">
-                <div class="pure-u-1-3">
+                <div class="pure-u-6-24">
                     <h4>Adresse</h4>
                 </div>
-                <div class="pure-u-2-3">
+                <div class="pure-u-16-24">
                     <div class="data">
                         {{ obj.address | safe }}
                     </div>
@@ -50,10 +50,10 @@
         </div>
         <div class="pure-u-1-4 l-box">
             <div class="pure-g user-info">
-                <div class="pure-u-1-3">
+                <div class="pure-u-6-24">
                     <h4>Contact</h4>
                 </div>
-                <div class="pure-u-2-3">
+                <div class="pure-u-16-24">
                     <div class="data">
                         {{ obj.contact | safe }}
                     </div>
@@ -62,10 +62,10 @@
         </div>
         <div class="pure-u-1-4 l-box">
             <div class="pure-g user-info">
-                <div class="pure-u-1-3">
+                <div class="pure-u-10-24">
                     <h4>Informations</h4>
                 </div>
-                <div class="pure-u-2-3">
+                <div class="pure-u-14-24">
                     <div class="data">
                         {{ obj.information | safe }}
                     </div>
@@ -158,7 +158,7 @@
 
                     <div class="pure-g">
                         {% for preference in obj.preference_set.all %}
-                            <div class="pure-u-1-{{ obj.preference_set.all | length }}">
+                            <div class="pure-u-1-{{ obj.get_preference_column_nbr }}">
                                 <div class="preferences">
                                     <canvas id="pref-{{ forloop.counter }}"></canvas>
                                     <span>{{ preference.title }}</span>
@@ -173,22 +173,16 @@
 
     <script>
         var opts = {
-            angle: 0.5,
+            angle: 1,
             lineWidth: 0.1,
             radiusScale: 1,
-            pointer: {
-                length: 0.6,
-                strokeWidth: 0.035,
-                color: DEFAULT_COLOR || '#3e3e3e'
-            },
             limitMax: false,
             limitMin: false,
-            colorStart: DEFAULT_COLOR || '#3e3e3e',
-            colorStop: DEFAULT_COLOR || '#3e3e3e',
+            colorStart: '#bbb',
+            colorStop: '#bbb',
             strokeColor: DEFAULT_COLOR || '#3e3e3e',
-            generateGradient: true,
+            generateGradient: false,
             highDpiSupport: true,
-
         };
 
         {% for preference in obj.preference_set.all %}
@@ -196,7 +190,7 @@
             var gauge{{ forloop.counter }} = new Donut(target{{ forloop.counter }}).setOptions(opts);
             gauge{{ forloop.counter }}.maxValue = 4;
             gauge{{ forloop.counter }}.setMinValue(0);
-            gauge{{ forloop.counter }}.animationSpeed = 0;
+            gauge{{ forloop.counter }}.animationSpeed = 1;
             gauge{{ forloop.counter }}.set({{ preference.force }});
         {% endfor %}
     </script>
