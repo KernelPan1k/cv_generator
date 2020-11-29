@@ -6,11 +6,13 @@ from cv.models import CV
 
 
 class CvView(View):
-    template_name = "cv/detail.html"
+    template_name = "cv/%s_detail.html"
 
     def get(self, request, *args, **kwargs):
         obj = get_object_or_404(CV, pk=kwargs['pk'])
-        return render(request, self.template_name, {'obj': obj})
+        language = 'fr' if not obj.language else obj.language
+        template_name = self.template_name % language
+        return render(request, template_name, {'obj': obj})
 
 
 class CvListView(ListView):

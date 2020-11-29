@@ -1,0 +1,197 @@
+{% extends "cv_generator/base.html" %}
+{% load static %}
+
+{% block head %}
+    {#    https://bernii.github.io/gauge.js/#}
+    <script src="{% static "cv/js/gauge.js" %}"></script>
+
+    {% if obj.color %}
+        <style>
+            h1 {
+                color: {{ obj.color }} !important;
+            }
+
+            .arrow {
+                border-color: {{ obj.color }} !important;
+            }
+
+            .dot-dark {
+                background-color: {{ obj.color }} !important;
+            }
+
+            .body-arrow {
+                border-right-color: {{ obj.color }} !important;
+            }
+        </style>
+
+        <script>
+            var DEFAULT_COLOR = "{{ obj.color }}";
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="pure-g">
+        <div class="pure-u-1-4 l-box">
+            <h1>{{ obj.full_name }}</h1>
+            <span>Web developer</span>
+        </div>
+        <div class="pure-u-1-4 l-box">
+            <div class="pure-g user-info">
+                <div class="pure-u-6-24">
+                    <h4>Address</h4>
+                </div>
+                <div class="pure-u-16-24">
+                    <div class="data">
+                        {{ obj.address | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pure-u-1-4 l-box">
+            <div class="pure-g user-info">
+                <div class="pure-u-6-24">
+                    <h4>Contact</h4>
+                </div>
+                <div class="pure-u-16-24">
+                    <div class="data">
+                        {{ obj.contact | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pure-u-1-4 l-box">
+            <div class="pure-g user-info">
+                <div class="pure-u-10-24">
+                    <h4>Informations</h4>
+                </div>
+                <div class="pure-u-14-24">
+                    <div class="data">
+                        {{ obj.information | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pure-g">
+        <div class="pure-u-1-2 l-box">
+            <h2>PROFESSIONAL EXPERIENCES</h2>
+
+            {% for experience in obj.experience_set.all %}
+                <div class="pure-g">
+                    <div class="pure-u-1-1">
+                        <h3>{{ experience.title }}</h3>
+
+                        {{ experience.tasks | safe }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if obj.hobby %}
+                <h2>HOBBIES</h2>
+
+                <div class="pure-g">
+                    <div class="pure-u-1-1">
+                        {{ obj.hobby | safe }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="pure-u-1-2 l-box">
+            <div class="pure-g">
+                <div class="pure-u-1-1">
+                    <h2>DIPLOMAS</h2>
+
+                    <div class="pure-g grades">
+                        {% for grade in obj.grade_set.all %}
+                            <div class="pure-u-1-24 body-arrow">
+                                {% if forloop.first %}
+                                    <span class="arrow"></span>
+                                {% else %}
+                                    <span class="dot dot-dark"></span>
+                                {% endif %}
+                            </div>
+
+                            <div class="pure-u-23-24 l-box">
+                                <span>{{ grade.year }}</span>
+                                <br>
+                                <span>{{ grade.title }}</span>
+                                <br>
+                                <span>{{ grade.sub_title }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <div class="pure-u-1-1">
+                    <h2>VARIOUS KNOWLEDGE</h2>
+
+                    {{ obj.knowledge | safe }}
+                </div>
+
+                <div class="pure-u-1-1">
+                    <h2>TECHNOLOGIES</h2>
+
+                    <div class="pure-g">
+                        {% for technology in obj.technology_set.all %}
+                            <div class="pure-u-1-2">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3">
+                                        <span>{{ technology.title }}</span>
+                                    </div>
+                                    <div class="pure-u-2-3">
+                                        {% for i in '0123456789'|make_list %}
+                                            <span class="bullet dot {% if technology.force >= forloop.counter %}dot-dark{% endif %}"></span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <div class="pure-u-1-1">
+                    <h2>PREFERENCES</h2>
+
+                    <div class="pure-g">
+                        {% for preference in obj.preference_set.all %}
+                            <div class="pure-u-1-{{ obj.get_preference_column_nbr }}">
+                                <div class="preferences">
+                                    <canvas id="pref-{{ forloop.counter }}"></canvas>
+                                    <span>{{ preference.title }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var opts = {
+            angle: 1,
+            lineWidth: 0.09,
+            radiusScale: 1,
+            limitMax: false,
+            limitMin: false,
+            colorStart: DEFAULT_COLOR || '#3e3e3e',
+            colorStop: DEFAULT_COLOR || '#3e3e3e',
+            strokeColor: '#bbb',
+            generateGradient: false,
+            highDpiSupport: true,
+        };
+
+        {% for preference in obj.preference_set.all %}
+            var target{{ forloop.counter }} = document.getElementById('pref-{{ forloop.counter }}');
+            var gauge{{ forloop.counter }} = new Donut(target{{ forloop.counter }}).setOptions(opts);
+            gauge{{ forloop.counter }}.maxValue = 4;
+            gauge{{ forloop.counter }}.setMinValue(0);
+            gauge{{ forloop.counter }}.animationSpeed = 1;
+            gauge{{ forloop.counter }}.set({{ preference.force }});
+        {% endfor %}
+    </script>
+{% endblock %}

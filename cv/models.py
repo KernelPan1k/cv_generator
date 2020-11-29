@@ -13,6 +13,7 @@ class CV(models.Model):
     knowledge = RichTextField("Knowledge", config_name='default')
     hobby = RichTextField("Hobby", config_name='default', blank=True, null=True, default=None)
     color = ColorField(default='#3e3e3e')
+    language = models.CharField("Language", max_length=100, blank=True, null=True, default=None)
 
     def get_preference_column_nbr(self):
         total_length = self.preference_set.count()
